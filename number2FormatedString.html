@@ -5,45 +5,52 @@
 <script>
 function getNumberAsString(input)
 {
-	if(input.length <= 3 && input >= 0) {
-		return input;
-	}
-	else {
-  		var len = input.length;
+  if(input.length <= 3 && input >= 0) {
+    return input;
+  }
+  else {
+      var len = input.length;
 
-  		var tmp = parseFloat(input);
+      var tmp = parseFloat(input);
 
-  		if(tmp> 999) {
+      if(tmp> 999) {
   
-  			var mod = len % 3;
+        var mod = len % 3;
 
-  			var range = len - mod;
+        var range = len - mod;
 
-  			var digit = tmp;
-  			if(mod == 0) {
-    			digit = tmp/Math.pow(10,(len-3));
-    			digit = Math.round(digit*10)/10
-    			digit = digit.toFixed(0);
-    			range = range -3;
-  			} else if(mod == 1) {
-    			digit = tmp/Math.pow(10,(len-1));
-    			digit = Math.round(digit*10)/10
-    			digit = digit.toFixed(1);
-  			} else {
-    			digit = tmp/Math.pow(10,(len-2));
-    			digit = Math.round(digit*10)/10
-    			digit = digit.toFixed(0);
-  			}
+        var digit = tmp;
+        if(mod == 0) {
+          digit = tmp/Math.pow(10,(len-3));
+          digit = Math.round(digit*10)/10
+          digit = digit.toFixed(0);
+          range = range -3;
+        } else if(mod == 1) {
+          digit = tmp/Math.pow(10,(len-1));
+          digit = Math.round(digit*10)/10
+          digit = digit.toFixed(1);
+        } else {
+          digit = tmp/Math.pow(10,(len-2));
+          digit = Math.round(digit*10)/10
+                        digit = digit.toFixed(0);
+        }
 
-  			if(range == 3) {
-     			return digit + "K";
-  			} else if(range == 6) {
-    			return digit + "M";
-  			} else if(range == 9) {
-    			return digit + "B";
-  			} 
-		}
-	}
+                        if(digit % 1000 == 0) {
+                          range += 3;
+                          digit = 1 + ".0";
+                        } else if(digit % 10 == 0 && digit < 100) {
+                          digit = 10;
+                        } 
+
+        if(range == 3) {
+          return digit + "K";
+        } else if(range == 6) {
+          return digit + "M";
+        } else if(range == 9) {
+          return digit + "B";
+        } 
+    }
+  }
 }
 </script>
 
